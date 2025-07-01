@@ -4,5 +4,8 @@
   "license": "ISC",
   "devDependencies": {
     "esbuild": "^0.24.2"
+  },
+  "dependencies": {
+    "@arco-design/web-react": "^2.66.1"
   }
 }
