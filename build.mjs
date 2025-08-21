@@ -4,33 +4,34 @@ import fs from 'fs';
 
 let code;
 
-// 处理对 React 的支持
-if (config.supportReact) {
-    // 进行初步编译，不进行 minify 以便二次处理
-    await esbuild.build({
-        entryPoints: [process.argv[2]],
-        bundle: true,
-        outfile: process.argv[3],
-        format: 'cjs',
-        allowOverwrite: true
-    })
 
-    code = fs.readFileSync(process.argv[3], 'utf8')
+await esbuild.build({
+    entryPoints: [process.argv[2]],
+    bundle: true,
+    outfile: process.argv[3],
+    format: 'cjs',
+    allowOverwrite: true,
+    external: ['react'/*, 'react-dom'*/], // 将React标记为外部依赖
+});
 
-    // 将编译后内置的 React 引用替换为 CoCo 提供的 React
-    code = code.replaceAll("require_react_development()", "React")
-    fs.writeFileSync(process.argv[3], code)
-}
+code = fs.readFileSync(process.argv[3], 'utf8')
 
-// 编译控件文件，清理 dead-code
+// 将编译后内置的 React 引用替换为 CoCo 提供的 React
+code = code.replace(/require\(['"]react['"]\)/g, 'React');
+// code = code.replace(/require\(['"]react-dom['"]\)/g, 'ReactDOM');
+
+fs.writeFileSync(process.argv[3], code);
+
+// 第二次构建进行压缩
 await esbuild.build({
     entryPoints: [process.argv[3]],
     bundle: true,
     minify: true,
     outfile: process.argv[3],
     format: 'cjs',
-    allowOverwrite: true
-})
+    allowOverwrite: true,
+    external: ['react'/*, 'react-dom'*/], // 保持外部依赖
+});
 
 // 添加版权信息与附加代码
 code = fs.readFileSync(process.argv[3], 'utf8')
