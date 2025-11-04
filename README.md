@@ -14,4 +14,4 @@
 
 本项目使用的 [Arco Design React](https://arco.design/react) 组件库使用 [MIT](https://github.com/arco-design/arco-design/blob/main/LICENSE) 许可证进行分发。
 
-本项目使用的 [开发框架](https://github.com/liulyxandy-codemao/widget-template) 使用 [AGPL-3.0](./LICENSE-TEMPLATE) 许可证进行分发。
+本项目使用的 [开发框架](https://github.com/liulyxandy-codemao/widget-template) 使用 [Apache-2.0](./LICENSE-TEMPLATE) 许可证进行分发。
