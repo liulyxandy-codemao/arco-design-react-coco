@@ -146,7 +146,7 @@ class Widget extends VisibleWidget {
         super(props);
         this.__width = props.__width;
         this.__height = props.__height;
-        this.images = props.images.split(',');
+        this.images = props.images;
         this.animation = props.animation;
         this.direction = props.direction;
         this.indicatorPosition = props.indicatorPosition;
@@ -163,7 +163,7 @@ class Widget extends VisibleWidget {
         return (
             <Carousel animation={this.animation} direction={this.direction} indicatorPosition={this.indicatorPosition}
                 indicatorType={this.indicator} showArrow={this.showArrow} autoPlay={this.autoplay ? {interval: this.autoplayInterval, hoverToPause: this.pauseOnHover} : false} style={{ width: this.__width, height: this.__height }} onChange={(current, previous, isManual) => {this.emit('onChange', current, previous, isManual)}} >
-                {this.images.map((image, index) => (
+                {this.images.split(',').map((image, index) => (
                     <div key={index} style={{ width: '100%', cursor: 'pointer' }} onClick={() => {this.emit('onClick', index)}}>
                         <img src={image} alt={`Carousel Image ${index + 1}`} style={{ width: '100%' }} />
                     </div>
