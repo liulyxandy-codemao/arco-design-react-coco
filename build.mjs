@@ -37,4 +37,8 @@ await esbuild.build({
 code = fs.readFileSync(process.argv[3], 'utf8')
 code = config.additionalCode + code
 code = `/**\n * Copyright (c) ${config.license.author}\n * @license ${config.license.name} ${config.license.url}\n */\n` + code
+
+// 修复 fetchPriority 问题
+code = code.replaceAll('.fetchPriority', '["fetchPriority"]')
+
 fs.writeFileSync(process.argv[3], code)
